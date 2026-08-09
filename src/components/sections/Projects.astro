@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section id="projects" class="section projects">
+  <h2>Proyectos</h2>
+  {
+    projects.length === 0 ? (
+      <p class="empty">Agrega proyectos en src/content/projects/</p>
+    ) : (
+      <div class="project-grid">
+        {projects.map((project) => (
+          <article class="project-card">
+            <h3>{project.data.title}</h3>
+            <p>{project.data.description}</p>
+            {project.data.tags.length > 0 && (
+              <ul class="tags">
+                {project.data.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            )}
+            <div class="links">
+              {project.data.repoUrl && (
+                <a href={project.data.repoUrl} target="_blank" rel="noopener noreferrer">
+                  Código
+                </a>
+              )}
+              {project.data.demoUrl && (
+                <a href={project.data.demoUrl} target="_blank" rel="noopener noreferrer">
+                  Demo
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    )
+  }
+</section>

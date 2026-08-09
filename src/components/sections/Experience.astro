@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from "astro:content";
+
+const experiences = (await getCollection("experience")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const rendered = await Promise.all(
+  experiences.map(async (entry) => ({
+    entry,
+    Content: (await render(entry)).Content,
+  })),
+);
+---
+
+<section id="experience" class="section experience">
+  <h2>Experiencia</h2>
+  {
+    rendered.length === 0 ? (
+      <p class="empty">Agrega experiencia en src/content/experience/</p>
+    ) : (
+      <ol class="timeline">
+        {rendered.map(({ entry, Content }) => (
+          <li class="timeline-item">
+            <h3>
+              {entry.data.role} · {entry.data.organization}
+            </h3>
+            <p class="dates">
+              {entry.data.startDate} — {entry.data.endDate ?? "Presente"}
+            </p>
+            <div class="description">
+              <Content />
+            </div>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</section>

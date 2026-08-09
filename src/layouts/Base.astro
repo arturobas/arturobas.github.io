@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+import { sections } from "../config/sections";
+
+interface Props {
+  title?: string;
+}
+
+const { title = `${site.name} — ${site.role}` } = Astro.props;
+const navItems = sections.filter((s) => s.enabled && s.showInNav);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#hero">{site.name}</a>
+      <nav>
+        <ul>
+          {
+            navItems.map((item) => (
+              <li>
+                <a href={`#${item.id}`}>{item.navLabel ?? item.id}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>&copy; {new Date().getFullYear()} {site.name}</p>
+    </footer>
+  </body>
+</html>

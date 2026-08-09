@@ -1,0 +1,18 @@
+---
+import { site } from "../../data/site";
+---
+
+<section id="contact" class="section contact">
+  <h2>Contacto</h2>
+  <ul class="socials">
+    {
+      site.socials.map((s) => (
+        <li>
+          <a href={s.url} target="_blank" rel="noopener noreferrer">
+            {s.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
