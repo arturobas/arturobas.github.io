@@ -22,3 +22,10 @@ export const sections: SectionConfig[] = [
   { id: "experience", slug: "experiencia", enabled: true, showInNav: true, navLabel: "Experiencia" },
   { id: "contact", slug: "contacto", enabled: true, showInNav: true, navLabel: "Contacto" },
 ];
+
+// Deriva el prefijo numerado ("01.", "02.", ...) de una sección a partir de su
+// posición entre las secciones habilitadas, para no repetir números a mano.
+export function sectionNumber(id: SectionId): string {
+  const index = sections.filter((s) => s.enabled).findIndex((s) => s.id === id);
+  return String(index + 1).padStart(2, "0");
+}

@@ -1,9 +1,46 @@
 ---
 import { site } from "../../data/site";
+import { sections } from "../../config/sections";
+
+const projectsSection = sections.find((s) => s.id === "projects" && s.enabled && s.showInNav);
+const contactSection = sections.find((s) => s.id === "contact" && s.enabled && s.showInNav);
 ---
 
-<section id="hero" class="section hero">
-  <h1>{site.name}</h1>
-  <p class="role">{site.role}</p>
-  <p class="tagline">{site.tagline}</p>
+<section id="hero" class="relative flex min-h-[calc(100vh-5rem)] flex-col justify-center px-6">
+  <div class="mx-auto w-full max-w-[1200px]">
+    <p class="mb-4 flex items-center gap-2 font-mono text-label-caps text-secondary">
+      <span class="mac-dot animate-pulse bg-secondary"></span>
+      SYSTEM INITIALIZED...
+    </p>
+    <h1 class="text-display-lg-mobile text-on-surface md:text-display-lg">
+      Hola, soy <span class="text-gradient">{site.name}</span>. {site.role}.
+    </h1>
+    <p class="mt-6 max-w-2xl text-body-lg text-on-surface-variant">
+      {site.tagline}
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      {
+        projectsSection && (
+          <a
+            href={`/${projectsSection.slug}`}
+            class="glow-button flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-mono text-body-sm font-semibold text-on-primary"
+          >
+            <span class="material-symbols-outlined">rocket_launch</span>
+            Ver proyectos
+          </a>
+        )
+      }
+      {
+        contactSection && (
+          <a
+            href={`/${contactSection.slug}`}
+            class="flex items-center gap-2 rounded-lg border border-outline-variant px-6 py-3 font-mono text-body-sm text-on-surface transition-colors hover:border-primary hover:text-primary"
+          >
+            <span class="material-symbols-outlined">mail</span>
+            Contáctame
+          </a>
+        )
+      }
+    </div>
+  </div>
 </section>

@@ -5,6 +5,8 @@ export const site = {
   about:
     "Un párrafo más largo contando tu historia, experiencia e intereses. Edita este texto en src/data/site.ts.",
   location: "Ciudad, País",
+  // Ruta local en /public (p. ej. "/avatar.jpg"). Vacío = se muestra un placeholder.
+  avatarUrl: "",
   socials: [
     { label: "Email", url: "mailto:tu@email.com" },
     { label: "GitHub", url: "https://github.com/tuusuario" },

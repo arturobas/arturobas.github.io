@@ -20,34 +20,84 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="/" aria-current={currentPath === "/" ? "page" : undefined}>
-        {site.name}
-      </a>
-      <nav>
-        <ul>
-          {
-            navItems.map((item) => {
-              const href = `/${item.slug}`;
-              return (
-                <li>
-                  <a href={href} aria-current={currentPath === href ? "page" : undefined}>
-                    {item.navLabel}
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
-      </nav>
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="fixed inset-x-0 top-0 z-50 border-b border-outline-variant/20 bg-surface/80 backdrop-blur-xl"
+    >
+      <div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
+        <a
+          class="font-mono text-sm font-bold tracking-tight text-primary"
+          href="/"
+          aria-current={currentPath === "/" ? "page" : undefined}
+        >
+          {site.name}
+        </a>
+        <nav>
+          <ul class="flex gap-8 font-mono text-body-sm">
+            {
+              navItems.map((item) => {
+                const href = `/${item.slug}`;
+                return (
+                  <li>
+                    <a
+                      href={href}
+                      class="text-on-surface-variant transition-colors hover:text-primary aria-[current=page]:border-b-2 aria-[current=page]:border-primary aria-[current=page]:pb-1 aria-[current=page]:font-semibold aria-[current=page]:text-primary"
+                      aria-current={currentPath === href ? "page" : undefined}
+                    >
+                      {item.navLabel}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </nav>
+      </div>
     </header>
-    <main>
+    <main class="flex-grow pt-20">
       <slot />
     </main>
-    <footer class="site-footer">
-      <p>&copy; {new Date().getFullYear()} {site.name}</p>
+    <footer class="border-t border-outline-variant/20 bg-surface-container-lowest">
+      <div
+        class="mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-6 py-12 md:flex-row md:justify-between"
+      >
+        <div class="flex flex-col items-center gap-2 md:items-start">
+          <span class="font-mono text-body-sm text-primary">{site.name}</span>
+          <span class="font-mono text-label-caps text-on-surface-variant">
+            © {new Date().getFullYear()} {site.name}
+          </span>
+        </div>
+        <nav>
+          <ul class="flex flex-wrap justify-center gap-6 font-mono text-label-caps uppercase">
+            {
+              site.socials.map((s) => (
+                <li>
+                  <a
+                    href={s.url}
+                    class="text-on-surface-variant transition-colors hover:text-secondary"
+                    target={s.url.startsWith("http") ? "_blank" : undefined}
+                    rel={s.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
     </footer>
   </body>
 </html>
