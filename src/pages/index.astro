@@ -1,33 +1,22 @@
 ---
 import Base from "../layouts/Base.astro";
 import Hero from "../components/sections/Hero.astro";
-import About from "../components/sections/About.astro";
-import Skills from "../components/sections/Skills.astro";
-import Projects from "../components/sections/Projects.astro";
-import Experience from "../components/sections/Experience.astro";
-import Contact from "../components/sections/Contact.astro";
-import { sections, type SectionId } from "../config/sections";
+import { sections } from "../config/sections";
 
-// Punto único donde se conectan las secciones disponibles con su id de config.
-// Para agregar una sección nueva: crea el componente, regístralo aquí y
-// agrega la entrada correspondiente en src/config/sections.ts.
-const registry: Record<SectionId, (typeof Hero)> = {
-  hero: Hero,
-  about: About,
-  skills: Skills,
-  projects: Projects,
-  experience: Experience,
-  contact: Contact,
-};
-
-const active = sections.filter((s) => s.enabled);
+const links = sections.filter((s) => s.enabled && s.showInNav);
 ---
 
 <Base>
-  {
-    active.map((s) => {
-      const Component = registry[s.id];
-      return <Component />;
-    })
-  }
+  <Hero />
+  <nav class="section home-links" aria-label="Secciones del portafolio">
+    <ul>
+      {
+        links.map((item) => (
+          <li>
+            <a href={`/${item.slug}`}>{item.navLabel}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </Base>

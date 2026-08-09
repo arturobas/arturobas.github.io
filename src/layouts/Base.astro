@@ -9,6 +9,7 @@ interface Props {
 
 const { title = `${site.name} — ${site.role}` } = Astro.props;
 const navItems = sections.filter((s) => s.enabled && s.showInNav);
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
 <!doctype html>
@@ -22,15 +23,22 @@ const navItems = sections.filter((s) => s.enabled && s.showInNav);
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#hero">{site.name}</a>
+      <a class="brand" href="/" aria-current={currentPath === "/" ? "page" : undefined}>
+        {site.name}
+      </a>
       <nav>
         <ul>
           {
-            navItems.map((item) => (
-              <li>
-                <a href={`#${item.id}`}>{item.navLabel ?? item.id}</a>
-              </li>
-            ))
+            navItems.map((item) => {
+              const href = `/${item.slug}`;
+              return (
+                <li>
+                  <a href={href} aria-current={currentPath === href ? "page" : undefined}>
+                    {item.navLabel}
+                  </a>
+                </li>
+              );
+            })
           }
         </ul>
       </nav>

@@ -55,6 +55,33 @@ a {
   color: var(--color-accent);
 }
 
+.site-header a[aria-current="page"] {
+  color: var(--color-accent);
+}
+
+.home-links ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-links a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-links a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 main {
   max-width: var(--max-width);
   margin: 0 auto;
