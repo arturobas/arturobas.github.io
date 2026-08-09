@@ -4,6 +4,7 @@ import { sections } from "../../config/sections";
 
 const projectsSection = sections.find((s) => s.id === "projects" && s.enabled && s.showInNav);
 const contactSection = sections.find((s) => s.id === "contact" && s.enabled && s.showInNav);
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="hero" class="relative flex min-h-[calc(100vh-5rem)] flex-col justify-center px-6">
@@ -22,7 +23,7 @@ const contactSection = sections.find((s) => s.id === "contact" && s.enabled && s
       {
         projectsSection && (
           <a
-            href={`/${projectsSection.slug}`}
+            href={`${base}${projectsSection.slug}`}
             class="glow-button flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-mono text-body-sm font-semibold text-on-primary"
           >
             <span class="material-symbols-outlined">rocket_launch</span>
@@ -33,7 +34,7 @@ const contactSection = sections.find((s) => s.id === "contact" && s.enabled && s
       {
         contactSection && (
           <a
-            href={`/${contactSection.slug}`}
+            href={`${base}${contactSection.slug}`}
             class="flex items-center gap-2 rounded-lg border border-outline-variant px-6 py-3 font-mono text-body-sm text-on-surface transition-colors hover:border-primary hover:text-primary"
           >
             <span class="material-symbols-outlined">mail</span>
