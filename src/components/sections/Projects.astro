@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import { sectionNumber } from "../../config/sections";
+import MacDots from "../ui/MacDots.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section id="projects" class="mx-auto max-w-[1200px] px-6 py-16 md:py-30">
+  <div class="mb-12">
+    <span class="font-mono text-label-caps text-primary">
+      {sectionNumber("projects")}. // PROYECTOS
+    </span>
+    <h2 class="mt-2 text-headline-md text-on-surface">Trabajo destacado</h2>
+  </div>
+  {
+    projects.length === 0 ? (
+      <p class="italic text-on-surface-variant">
+        Agrega proyectos en src/content/projects/
+      </p>
+    ) : (
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <article class="glass-panel glow-button flex h-full flex-col overflow-hidden">
+            <div class="relative border-b border-outline-variant/20">
+              <div class="absolute left-0 top-0 z-10 flex h-8 w-full items-center gap-2 bg-surface-container-high px-4">
+                <MacDots />
+              </div>
+              {project.data.image ? (
+                <Image
+                  src={project.data.image}
+                  alt={project.data.title}
+                  class="h-40 w-full object-cover pt-8"
+                />
+              ) : (
+                <div class="flex h-40 w-full items-center justify-center bg-gradient-to-br from-surface-container-high to-surface-container pt-8">
+                  <span class="material-symbols-outlined text-4xl text-on-surface-variant/40">
+                    terminal
+                  </span>
+                </div>
+              )}
+            </div>
+            <div class="flex flex-grow flex-col p-6">
+              <h3 class="mb-2 text-lg font-bold">{project.data.title}</h3>
+              <p class="mb-6 flex-grow text-body-sm text-on-surface-variant">
+                {project.data.description}
+              </p>
+              {project.data.tags.length > 0 && (
+                <div class="mb-6 flex flex-wrap gap-2">
+                  {project.data.tags.map((tag) => (
+                    <span class="pill">{tag}</span>
+                  ))}
+                </div>
+              )}
+              <div class="mt-auto flex gap-3">
+                {project.data.demoUrl && (
+                  <a
+                    href={project.data.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary py-2 font-mono text-body-sm text-on-primary transition-colors hover:bg-primary-fixed-dim"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                    Demo
+                  </a>
+                )}
+                {project.data.repoUrl && (
+                  <a
+                    href={project.data.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-outline-variant py-2 font-mono text-body-sm text-on-surface transition-colors hover:border-primary hover:text-primary"
+                  >
+                    <span class="material-symbols-outlined text-[18px]">code</span>
+                    Código
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    )
+  }
+</section>

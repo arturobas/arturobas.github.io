@@ -1,0 +1,34 @@
+---
+import Base from "../layouts/Base.astro";
+import About from "../components/sections/About.astro";
+import Skills from "../components/sections/Skills.astro";
+import Projects from "../components/sections/Projects.astro";
+import Experience from "../components/sections/Experience.astro";
+import Contact from "../components/sections/Contact.astro";
+import { sections, type SectionId } from "../config/sections";
+import { site } from "../data/site";
+
+export function getStaticPaths() {
+  return sections
+    .filter((s) => s.enabled)
+    .map((s) => ({ params: { slug: s.slug }, props: { section: s } }));
+}
+
+// Punto único donde se conectan las secciones disponibles con su id de config.
+// Para agregar una sección nueva: crea el componente, regístralo aquí y
+// agrega la entrada correspondiente en src/config/sections.ts.
+const registry: Record<SectionId, typeof About> = {
+  about: About,
+  skills: Skills,
+  projects: Projects,
+  experience: Experience,
+  contact: Contact,
+};
+
+const { section } = Astro.props;
+const Component = registry[section.id];
+---
+
+<Base title={`${section.navLabel} — ${site.name}`}>
+  <Component />
+</Base>
