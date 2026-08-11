@@ -2,6 +2,8 @@
 import { site } from "../../data/site";
 import { sectionNumber } from "../../config/sections";
 import MacDots from "../ui/MacDots.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="about" class="mx-auto grid max-w-[1200px] gap-12 px-6 py-16 md:grid-cols-2 md:py-30">
@@ -9,7 +11,7 @@ import MacDots from "../ui/MacDots.astro";
     {
       site.avatarUrl ? (
         <img
-          src={site.avatarUrl}
+          src={`${base}${site.avatarUrl}`}
           alt={site.name}
           class="aspect-square w-full rounded-xl object-cover"
         />

@@ -1,15 +1,15 @@
 export const site = {
-  name: "Tu Nombre",
-  role: "Tu Rol / Título Profesional",
-  tagline: "Una frase corta que te describe (se muestra en el Hero).",
+  name: "Arturo Bas",
+  role: "Desarrollador Full Stack",
+  tagline: "Creo soluciones digitales completas, del backend al frontend.",
   about:
-    "Un párrafo más largo contando tu historia, experiencia e intereses. Edita este texto en src/data/site.ts.",
-  location: "Ciudad, País",
-  // Ruta local en /public (p. ej. "/avatar.jpg"). Vacío = se muestra un placeholder.
-  avatarUrl: "",
+    "Soy desarrollador de software apasionado por crear soluciones que conviertan ideas complejas en productos simples y funcionales. Mi experiencia se centra principalmente en el desarrollo web y de aplicaciones, trabajando con tecnologías como .NET, Flutter, Next.js y arquitecturas modernas de software. Fuera del código, me apasiona el desarrollo de videojuegos, el diseño de productos y explorar nuevas tecnologías, siempre buscando aprender y construir algo nuevo.",
+  location: "San José, Costa Rica",
+  // Ruta local en /public, sin slash inicial (p. ej. "avatar.jpg"). Vacío = se muestra un placeholder.
+  avatarUrl: "avatar.jpg",
   socials: [
-    { label: "Email", url: "mailto:tu@email.com" },
-    { label: "GitHub", url: "https://github.com/tuusuario" },
-    { label: "LinkedIn", url: "https://linkedin.com/in/tuusuario" },
+    { label: "Email", url: "mailto:arturobasmartinez@gmail.com" },
+    { label: "GitHub", url: "https://github.com/arturobas" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/arturo-alejandro-bas-martinez/" },
   ],
 };
